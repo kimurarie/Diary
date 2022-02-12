@@ -9,12 +9,10 @@ import Home from './pages/home/Home.jsx';
 import './style.css';
 
 render(
-    // <BrowserRouter>
-    //     <Switch>
-    //         <Route exact path='/'><Home /></Route>
-    //     </Switch>
-    // </BrowserRouter>
-    <h1 id="test">Hello,World!!</h1>
-    ,
-    document.getElementById('app')
+    <BrowserRouter>
+        <Switch>
+            <Route exact path='/'><Home /></Route>
+        </Switch>
+    </BrowserRouter>
+    , document.getElementById('app')
 );

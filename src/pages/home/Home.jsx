@@ -1,52 +1,37 @@
 import { useState, useEffect } from 'react';
-import {
-    ref, get, onValue, push, serverTimestamp
-} from "firebase/database";
-
-// Firebaseの設定ファイルのインポート
-import { database } from "./../FirebaseConfig.js";
+import { ref, push, get,onValue } from 'firebase/database'
+import { database } from '../FirebaseConfig.js';
 
 const Home = () => {
-    const [text, setText] = useState('');
-    const [list, setList] = useState([]);
 
-    useEffect(() => {
-        let tmpList = [...list];
-        const dbRef = ref(database, 'posts');
-        // onValue(dbRef, (snapshot) => {
-        //     const result = snapshot.val();
-        // });
-        get(dbRef).then((snapshot) => {
-            const result = snapshot.val();
-            if (result !== null) {
-                Object.keys(result).forEach(key => {
-                    tmpList.push(<p key={key}>{result[key].text}</p>);
-                });
-                setList(tmpList);
-                // const date = new Date(result.time)
-            }
-        })
-    }, []);
+  const [text, setText] = useState('');
+  const [list, setList] = useState('');
 
-    const handleChange = (e) => {
-        setText(e.target.value);
-    }
+  useEffect(() => { // 無限ループ対策
+    onValue(ref(database, 'posts'),(snapshop) => {
+      let tmpList = [];
+      const result = snapshop.val()
+      for(let i in result){
+        tmpList.push(<p key={i}>{result[i].text}</p>)
+      }
+      setList([...tmpList])
+    })
+  }, [])
 
-    const post = (postText) => {
-        push(ref(database, 'posts'), {
-            text: postText,
-            time: serverTimestamp()
-        });
-        setText('');
-    }
+  const post = () => { // 投稿内容をDBに書き込み
+    push(ref(database, 'posts'), {
+      text: text
+    })
+    setText('');
+  }
 
-    return (
-        <div>
-            <input type="text" id="message" placeholder="メッセージを入力" value={text} onChange={handleChange}></input>
-            <button type="button" onClick={() => post(text)}>投稿</button>
-            {list}
-        </div>
-    );
+  return (
+    <div>
+      {list}
+      <input type="text" value={text} onChange={(e) => setText(e.target.value)}></input>
+      <button onClick={() => post()}>投稿</button>
+    </div>
+  );
 }
 
-export default Home;
+export default Home; // 外部から呼び出す
