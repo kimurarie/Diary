@@ -8,8 +8,9 @@ import Home from './pages/home/Home.jsx';
 // CSSのインポート
 import './style.css';
 
-render(
-    <BrowserRouter>
+render( 
+    // ページ遷移
+    <BrowserRouter> 
         <Switch>
             <Route exact path='/'><Home /></Route>
         </Switch>

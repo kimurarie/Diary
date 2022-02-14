@@ -34,4 +34,4 @@ const Home = () => {
   );
 }
 
-export default Home; // 外部から呼び出す
+export default Home; // 外部から呼び出せるようにする
