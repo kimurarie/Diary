@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ref, push, get,onValue } from 'firebase/database'
-import { database } from '../FirebaseConfig.js';
+import firebase from '../FirebaseConfig.js';
 
 const Home = () => {
 
@@ -8,21 +7,21 @@ const Home = () => {
   const [list, setList] = useState('');
 
   useEffect(() => { // 無限ループ対策
-    onValue(ref(database, 'posts'),(snapshop) => {
-      let tmpList = [];
-      const result = snapshop.val()
-      for(let i in result){
-        tmpList.push(<p key={i}>{result[i].text}</p>)
-      }
-      setList([...tmpList])
-    })
+    // onValue(ref(database, 'posts'), (snapshop) => {
+    //   let tmpList = [];
+    //   const result = snapshop.val()
+    //   for (let i in result) {
+    //     tmpList.push(<p key={i}>{result[i].text}</p>)
+    //   }
+    //   setList([...tmpList])
+    // })
   }, [])
 
   const post = () => { // 投稿内容をDBに書き込み
-    push(ref(database, 'posts'), {
-      text: text
-    })
-    setText('');
+    // push(ref(database, 'posts'), {
+    //   text: text
+    // })
+    // setText('');
   }
 
   return (
