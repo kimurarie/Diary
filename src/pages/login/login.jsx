@@ -1,21 +1,22 @@
 import { useState, useEffect } from 'react';
-import firebase from '../FirebaseConfig.js'
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 
 const Login = () => {
 
   const [info, setInfo] = useState('');
 
-  const getAuth = () => {
+  const get = () => {
     return new Promise(resolve => {
-      firebase.auth().onAuthStateChanged(user => {
-        resolve(user);
-      })
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        resolve(user);        
+      });
     })
   }
 
   useEffect(async() => {
-    console.log((await getAuth()));
+    // console.log((await get()));
   }, [])
 
   return (
