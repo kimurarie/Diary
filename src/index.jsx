@@ -1,4 +1,4 @@
-// ライブラリーのインポート
+// ライブラリのインポート
 import { render } from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
