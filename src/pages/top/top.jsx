@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
-import firebase from '../FirebaseConfig.js'
+import { GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithRedirect } from 'firebase/auth';
 
 const Top = () => {
 
   const login = () => {
     history.replaceState(null, null, '/login');
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    signInWithRedirect(auth,provider);
   };
 
   return (
