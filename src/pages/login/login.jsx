@@ -3,20 +3,22 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { equalTo, getDatabase, orderByChild, query, ref, get, child, set } from 'firebase/database';
 import { Redirect } from 'react-router-dom';
 
+const Login = (props) => {
 
-const Login = () => {
+  // const {name,uid} = props;
 
   const [page, setPage] = useState('login');
   const [jump, setJump] = useState(false);
   const [nickname, setName] = useState('');
-  const [uid, setId] = useState('');
+  
+  console.log(props.name,props.uid)
 
-  useEffect(async () => {
-    const data = await getInfo();
-    const id =  data.uid;
-    const name = await getDb(id);
-    setId(id);
-    if (name === '') {
+  useEffect( () => {
+    
+    // setUid(props.id)
+    // setId(id);
+
+    if (props.name === '') {
       setPage('singup');
     } else {
       setJump(true);
@@ -24,33 +26,11 @@ const Login = () => {
 
   }, [])
 
-  const getInfo = () => {
-    return new Promise(resolve => {
-      const auth = getAuth();
-      onAuthStateChanged(auth, (user) => {
-        resolve(user);
-      });
-    })
-  }
-
-  const getDb = (id) => {
-    return new Promise(resolve => {
-      const deRef = ref(getDatabase());
-      get(child(deRef, '/user/' + id)).then((snapshot) => {
-
-        const result = snapshot.val();
-        if (result === null)
-          resolve('');
-        else
-          resolve(result.name);
-      })
-    })
-  }
-
+  // 新規登録でニックネームを登録
   const signUp = () => {
-    const dbRef = ref(getDatabase(),'/user/'+uid);
-    set(dbRef,{
-      name:nickname
+    const dbRef = ref(getDatabase(), '/user/' + props.uid);
+    set(dbRef, {
+      name: nickname
     })
     setJump(true);
   }
