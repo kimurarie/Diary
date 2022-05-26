@@ -4,7 +4,6 @@ import { onValue, ref, push } from 'firebase/database';
 import { getAuth, signOut } from 'firebase/auth';
 import { Redirect } from 'react-router';
 
-
 const Home = () => {
 
   const [text, setText] = useState('');
