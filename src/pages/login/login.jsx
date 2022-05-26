@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 const Login = (props) => {
 
+  // propsで渡された値をprops名で使えるようにする
   // const {name,uid} = props;
 
   const [page, setPage] = useState('login');
@@ -14,9 +15,6 @@ const Login = (props) => {
   console.log(props.name,props.uid)
 
   useEffect( () => {
-    
-    // setUid(props.id)
-    // setId(id);
 
     if (props.name === '') {
       setPage('singup');

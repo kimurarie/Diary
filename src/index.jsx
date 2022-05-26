@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { equalTo, getDatabase, orderByChild, query, ref, get, child, set } from 'firebase/database';
 
-
 // コンポーネント(各画面)のインポート
 import Home from './pages/home/Home.jsx';
 import Login from './pages/login/login.jsx';
@@ -14,15 +13,12 @@ import Top from './pages/top/Top.jsx';
 // CSSのインポート
 import './style.css';
 
-
 // ページを切り替えるコンポーネント
 const App = () => {
 
     const [uid, setId] = useState('');
     const [nickname, setName] = useState('ニックネームの初期値');
-    // console.log(info)
-    // let uid = '';
-    // let nickname = '';
+
     useEffect(async () => {
         const data = await getInfo();
 
@@ -31,14 +27,9 @@ const App = () => {
             setId(id);
             const name = await getDb(id);
             setName(name);
-            //  console.log(name,id)
         }
 
     }, [])
-    // const data = getInfo();
-
-    // console.log(uid);
-
 
     // ログインユーザの情報を取得，未ログイン時はnullを返す
     const getInfo = () => {
@@ -66,6 +57,7 @@ const App = () => {
     }
 
     return (
+        // propsを渡す
         <BrowserRouter>
             <Switch>
                 <Route exact path='/'><Top /></Route>
