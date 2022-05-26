@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { database } from '../FirebaseConfig.js';
-import { onValue, ref, push} from 'firebase/database';
+import { onValue, ref, push } from 'firebase/database';
 import { getAuth, signOut } from 'firebase/auth';
 import { Redirect } from 'react-router';
 
@@ -13,12 +13,12 @@ const Home = () => {
 
   useEffect(() => { // 無限ループ対策
     onValue(ref(database, 'posts'), (snapshop) => {
-    let tmpList = [];
-    const result = snapshop.val()
-    for (let i in result) {
-    tmpList.push(<p key={i}>{result[i].text}</p>)
-    }
-    setList([...tmpList])
+      let tmpList = [];
+      const result = snapshop.val()
+      for (let i in result) {
+        tmpList.push(<p key={i}>{result[i].text}</p>)
+      }
+      setList([...tmpList])
     })
   }, [])
 
@@ -32,7 +32,7 @@ const Home = () => {
   // ログアウト処理
   const logout = () => {
     const auth = getAuth();
-    signOut(auth).then( () => {
+    signOut(auth).then(() => {
       setJump(true);
       console.log(jump)
     });
