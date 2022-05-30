@@ -1,4 +1,4 @@
-body{
+/* body {
     height: 100%;
     width: 100%;
     background: #efefef;
@@ -9,13 +9,57 @@ body{
     margin: 0px;
 }
 
-#app{
+#app {
     height: 100%;
     width: 100%;
     position: absolute;
-    font-family: "Hiragino Kaku Gothic ProN","ヒラギノ角ゴシック","ヒラギノ角ゴ Pro W3",Arial,'Noto Sans JP',sans-serif;
+    font-family: "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴシック", "ヒラギノ角ゴ Pro W3", Arial, 'Noto Sans JP', sans-serif;
 }
 
-#test{
+#test {
     color: red;
+} */
+
+/* Topコンポーネント */
+.main {
+	text-align: center;
+    color: rgb(13, 13, 41);
+}
+
+.title {
+    display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn {
+    display: inline-block;
+    text-align: center;
+    width: 20%;
+    margin-top: 30px;
+    height: 50px;
+    margin-right: 10px;
+    color: rgb(13, 13, 41);
+    font-size: 17px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.btn-signup{
+    border: solid 4px rgb(240, 35, 45);
+    background: rgb(240, 103, 103);
+}
+
+.btn-login{
+    border: solid 4px rgb(40, 198, 55);
+    background: rgb(110, 240, 106);
+}
+
+.textbox{
+    size: 100px;
+
+}
+
+.textbox{
+    height: 50px;
 }

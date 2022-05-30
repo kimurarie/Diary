@@ -62,7 +62,7 @@ const App = () => {
             <Switch>
                 <Route exact path='/'><Top /></Route>
                 <Route path='/login'>{ nickname === 'ニックネームの初期値' ? null : <Login uid={uid} name={nickname} />}</Route>
-                <Route path='/home'><Home /></Route>
+                <Route path='/home'><Home uid={uid} name={nickname} /></Route>
             </Switch>
         </BrowserRouter>
     )
