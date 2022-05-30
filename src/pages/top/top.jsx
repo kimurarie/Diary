@@ -8,13 +8,14 @@ const Top = () => {
     history.replaceState(null, null, '/login');
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
-    signInWithRedirect(auth,provider);
+    signInWithRedirect(auth, provider);
   };
 
   return (
-    <div>
-      <button onClick={() => login()}>Googleで新規登録</button>
-      <button onClick={() => login()}>Googleでログイン</button>
+    <div className="main">
+      <h1 className="title">自己肯定感を高める日記帳システム</h1>
+        <button className="btn-signup btn" onClick={() => login()}>Googleで新規登録</button>
+        <button className="btn-login btn" onClick={() => login()}>Googleでログイン</button>
     </div>
   );
 }

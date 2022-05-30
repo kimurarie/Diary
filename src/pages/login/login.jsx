@@ -46,9 +46,9 @@ const Login = (props) => {
   } else {
     return (
       <div>
-        新規登録
+        <h1 className="title">新規登録画面</h1>
         <input type="text" value={nickname} onChange={(e) => setName(e.target.value)}></input>
-        <button onClick={() => signUp()}>新規登録</button>
+        <button  className="btn-signup" onClick={() => signUp()}>新規登録</button>
       </div>
     );
   }
