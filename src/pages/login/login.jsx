@@ -45,10 +45,10 @@ const Login = (props) => {
     );
   } else {
     return (
-      <div>
+      <div className="main">
         <h1 className="title">新規登録画面</h1>
-        <input type="text" value={nickname} onChange={(e) => setName(e.target.value)}></input>
-        <button  className="btn-signup" onClick={() => signUp()}>新規登録</button>
+        <input type="text" value={nickname} className="textbox"  placeholder="ニックネームを入力" onChange={(e) => setName(e.target.value)}></input>
+        <button className="btn signup" onClick={() => signUp()}>新規登録</button>
       </div>
     );
   }

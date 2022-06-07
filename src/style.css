@@ -30,14 +30,14 @@
     display: flex;
 	justify-content: center;
 	align-items: center;
+    margin-top: 50px;
 }
 
 .btn {
     display: inline-block;
     text-align: center;
-    width: 20%;
     margin-top: 30px;
-    height: 50px;
+    height: 60px;
     margin-right: 10px;
     color: rgb(13, 13, 41);
     font-size: 17px;
@@ -48,18 +48,117 @@
 .btn-signup{
     border: solid 4px rgb(240, 35, 45);
     background: rgb(240, 103, 103);
+    width: 20%;
 }
 
 .btn-login{
     border: solid 4px rgb(40, 198, 55);
     background: rgb(110, 240, 106);
+    width: 20%;
+}
+
+/* Loginコンポーネント */
+.signup{
+    border: solid 4px rgb(240, 35, 45);
+    background: rgb(240, 103, 103);
+    width: 10%
 }
 
 .textbox{
-    size: 100px;
-
+    height: 30px;
+    width: 15%;
+    margin-right: 15px;
 }
 
-.textbox{
-    height: 50px;
+/* Homeコンポーネント */
+.content{
+    text-align: center;
+    background-color:rgb(184, 216, 247);
+    width: 50%;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.header{
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+}
+
+.name{
+    font-weight: bold;
+    font-size: 23px;
+}
+
+.created{
+    margin-left: 28px; 
+    font-size: 20px;
+}
+
+.post{
+    font-size: 25px;
+    /* padding-bottom: 15px; */
+}
+.textarea{
+    height: 60px;
+    width: 30%;
+    margin-right: 30px;
+}
+.btn-post{
+    background: #58a4ec;
+    border: solid 3px rgb(18, 131, 201);
+    color: white;
+    font-size: 15px;
+    width: 7%;
+    height: 60px;
+    margin-right: 10px;
+}
+
+.btn-reply{
+    display:block;
+    position:relative;
+    display: inline-block;
+    text-align: center;
+    /* margin-top: px; */
+    height: 40px;
+    /* margin-right: 10px; */
+    color: rgb(13, 13, 41);
+    font-size: 15px;
+    box-sizing: border-box;
+    margin-bottom: 15px; 
+}
+.btn-reply i{
+    /* position:absolute; */
+    /* top:50%; */
+    /* left:10px; */
+    /* margin-top:-0.5em; */
+    font-size: 20px;
+    margin-right: 10px;
+    color:#79868f;
+}
+
+.btn-logout{
+    background: rgb(240, 103, 103);
+    border: solid 3px rgb(237, 49, 49);
+    color: white;
+    font-size: 15px;
+    width: 7%;
+    height: 60px;
+}
+
+.swal-text {
+    display: block;
+    margin: 22px;
+    text-align: center;
+    color: #000000;
+    font-size: 20px;
+    margin-top: 25px;
+    margin-bottom: auto;
+  }
+
+  .swal-button {
+    border-radius: 2px;
+    background-color: #58a4ec;
+    font-size: 13px;
+  }

@@ -14,8 +14,8 @@ const Top = () => {
   return (
     <div className="main">
       <h1 className="title">自己肯定感を高める日記帳システム</h1>
-        <button className="btn-signup btn" onClick={() => login()}>Googleで新規登録</button>
-        <button className="btn-login btn" onClick={() => login()}>Googleでログイン</button>
+      <button className="btn btn-signup" onClick={() => login()}>新しいアカウントを作成</button>
+      <button className="btn btn-login" onClick={() => login()}>Googleでログイン</button>
     </div>
   );
 }
