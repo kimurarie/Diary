@@ -51,6 +51,7 @@ const App = () => {
                 if (result === null)
                     resolve('');
                 else
+                    console.log(result)
                     resolve(result.name);
             })
         })

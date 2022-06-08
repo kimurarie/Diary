@@ -3,6 +3,8 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { equalTo, getDatabase, orderByChild, query, ref, get, child, set } from 'firebase/database';
 import { Redirect } from 'react-router-dom';
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
 const Login = (props) => {
 
   // propsで渡された値をprops名で使えるようにする
@@ -12,7 +14,7 @@ const Login = (props) => {
   const [jump, setJump] = useState(false);
   const [nickname, setName] = useState('');
   
-  console.log(props.name,props.uid)
+  // console.log(props.name,props.uid)
 
   useEffect( () => {
 
@@ -26,11 +28,18 @@ const Login = (props) => {
 
   // 新規登録でニックネームを登録
   const signUp = () => {
-    const dbRef = ref(getDatabase(), '/user/' + props.uid);
-    set(dbRef, {
-      name: nickname
-    })
-    setJump(true);
+    if (nickname.length != 0) {
+      const dbRef = ref(getDatabase(), '/user/' + props.uid);
+      set(dbRef, {
+        name: nickname
+      })
+      setJump(true);
+    }else{
+      swal({
+        icon: "warning",
+        text: "ニックネームを入力してください",
+      });
+    }
   }
 
   if (jump) {
