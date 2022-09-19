@@ -5,6 +5,9 @@ export default defineConfig({
 	plugins: [
 		react(),
 	],
+	optimizeDeps: {
+    exclude: ["stream"]
+  },
 	esbuild: {
 		jsxInject: `import React from 'react';`,
 	},

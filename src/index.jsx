@@ -19,9 +19,16 @@ const App = () => {
     const [uid, setId] = useState('');
     const [nickname, setName] = useState('ニックネームの初期値');
 
+    // ブラウザバック防止
+    history.pushState(null, null, location.href);
+    window.addEventListener('popstate', (e) => {
+        history.go(1);
+    });
+
     useEffect(async () => {
         const data = await getInfo();
 
+        // ログイン時(dataが存在した時)
         if (data != null) {
             const id = data.uid;
             setId(id);
@@ -51,18 +58,18 @@ const App = () => {
                 if (result === null)
                     resolve('');
                 else
-                    console.log(result)
+                    // console.log(result)
                     resolve(result.name);
             })
         })
     }
 
     return (
-        // propsを渡す
+        // 子コンポーネントにpropsを渡す
         <BrowserRouter>
             <Switch>
                 <Route exact path='/'><Top /></Route>
-                <Route path='/login'>{ nickname === 'ニックネームの初期値' ? null : <Login uid={uid} name={nickname} />}</Route>
+                <Route path='/login'>{nickname === 'ニックネームの初期値' ? null : <Login uid={uid} name={nickname} />}</Route>
                 <Route path='/home'><Home uid={uid} name={nickname} /></Route>
             </Switch>
         </BrowserRouter>
