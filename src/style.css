@@ -222,8 +222,8 @@ body {
     color: #FFF;
     font-weight: bold;
     letter-spacing: 0.05em;
-    border-radius: 10px 10px 0px 0px;
-    /* 上だけ角丸 */
+    border-radius: 10px 10px 0px 0px; /* 上だけ角丸 */
+    
 }
 
 .content_reply {
