@@ -1,164 +1,330 @@
-/* body {
-    height: 100%;
-    width: 100%;
-    background: #efefef;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 0px;
-    margin: 0px;
+body {
+    background-color: #c5deeb;
 }
-
-#app {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    font-family: "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴシック", "ヒラギノ角ゴ Pro W3", Arial, 'Noto Sans JP', sans-serif;
-}
-
-#test {
-    color: red;
-} */
 
 /* Topコンポーネント */
 .main {
-	text-align: center;
     color: rgb(13, 13, 41);
 }
 
 .title {
     display: flex;
-	justify-content: center;
-	align-items: center;
+    justify-content: center;
+    align-items: center;
     margin-top: 50px;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
 }
 
 .btn {
     display: inline-block;
     text-align: center;
-    margin-top: 30px;
-    height: 60px;
-    margin-right: 10px;
-    color: rgb(13, 13, 41);
-    font-size: 17px;
-    box-sizing: border-box;
-    position: relative;
+    margin-top: 20px;
+    margin-right: 20px;
+    color: white;
+    font-size: 19px;
+    width: 20%;
+    height: 63px;
+    border-radius: 10px;
+    letter-spacing: 0.05em;
 }
 
-.btn-signup{
-    border: solid 4px rgb(240, 35, 45);
+.btn-signup {
     background: rgb(240, 103, 103);
-    width: 20%;
+    border: 4px solid rgb(240, 103, 103);
 }
 
-.btn-login{
-    border: solid 4px rgb(40, 198, 55);
-    background: rgb(110, 240, 106);
-    width: 20%;
+.btn-login {
+    background: #58a4ec;
+    border: 4px solid #58a4ec;
 }
 
 /* Loginコンポーネント */
-.signup{
-    border: solid 4px rgb(240, 35, 45);
+.signup {
     background: rgb(240, 103, 103);
-    width: 10%
+    border: 4px solid rgb(240, 103, 103);
+    color: white;
+    font-size: 19px;
+    width: 9%;
+    height: 60px;
+    border-radius: 10px;
+    letter-spacing: 0.05em;
 }
 
-.textbox{
-    height: 30px;
+.textbox {
+    height: 50px;
     width: 15%;
+    font-size: 21px;
     margin-right: 15px;
 }
 
-/* Homeコンポーネント */
-.content{
-    text-align: center;
-    background-color:rgb(184, 216, 247);
+/* Postコンポーネント */
+.content {
+    /* text-align: center; */
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
     width: 50%;
-    margin-top: 10px;
+    margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.header{
+.content .header {
+    width: 100%;
+    font-size: 1.2em;
+    background: #58a4ec;
+    padding: 4px;
+    box-sizing: border-box;
+    text-align: center;
+    color: #FFF;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    border-radius: 10px 10px 0px 0px;
+    /* 上だけ角丸 */
+}
+
+.content:hover {
+    outline: 5px solid rgb(142, 211, 238);
+    border-radius: 10px;
+}
+
+.header p {
+    padding: 12px 20px;
+    margin: 0;
+}
+
+.header {
     display: flex;
     align-items: center;
-    margin-left: 30px;
 }
 
-.name{
+.name {
+    font-size: 20px;
+}
+
+.created {
+    margin-left: 28px;
+    font-size: 18px;
+}
+
+.posts {
+    text-align: left;
+    margin-left: 50px;
+}
+
+.post {
+    font-size: 19px;
+}
+
+.post-personality {
+    color: rgb(251, 46, 100);
     font-weight: bold;
-    font-size: 23px;
 }
 
-.created{
-    margin-left: 28px; 
+
+.login-user {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.manual{
     font-size: 20px;
+    text-align: center;
+    margin-bottom: 15px;
 }
 
-.post{
-    font-size: 25px;
-    /* padding-bottom: 15px; */
-}
-.textarea{
-    height: 60px;
-    width: 30%;
-    margin-right: 30px;
-}
-.btn-post{
+.btn-post {
     background: #58a4ec;
-    border: solid 3px rgb(18, 131, 201);
+    border: 4px solid #58a4ec;
     color: white;
-    font-size: 15px;
-    width: 7%;
+    font-size: 21px;
+    width: 9%;
     height: 60px;
-    margin-right: 10px;
+    border-radius: 10px;
+    letter-spacing: 0.05em;
+    margin-right: 20px;
 }
 
-.btn-reply{
-    display:block;
-    position:relative;
-    display: inline-block;
-    text-align: center;
-    /* margin-top: px; */
-    height: 40px;
-    /* margin-right: 10px; */
-    color: rgb(13, 13, 41);
-    font-size: 15px;
-    box-sizing: border-box;
-    margin-bottom: 15px; 
-}
-.btn-reply i{
-    /* position:absolute; */
-    /* top:50%; */
-    /* left:10px; */
-    /* margin-top:-0.5em; */
-    font-size: 20px;
-    margin-right: 10px;
-    color:#79868f;
-}
-
-.btn-logout{
+.btn-logout {
     background: rgb(240, 103, 103);
-    border: solid 3px rgb(237, 49, 49);
+    border: 4px solid rgb(240, 103, 103);
     color: white;
-    font-size: 15px;
-    width: 7%;
+    font-size: 19px;
+    width: 9%;
     height: 60px;
+    border-radius: 10px;
+    letter-spacing: 0.05em;
 }
 
-/* .swal-text {
-    display: block;
-    margin: 22px;
-    text-align: center;
-    color: #000000;
-    font-size: 20px;
-    margin-top: 25px;
-    margin-bottom: auto;
-  }
+.reply {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-  .swal-button {
-    border-radius: 2px;
-    background-color: #58a4ec;
-    font-size: 13px;
-  } */
+.btn-reply {
+    /* display: block;
+    position: relative;
+    display: inline-block; */
+
+    text-align: center;
+    width: 13%;
+    height: 45px;
+    color: rgb(255, 255, 255);
+    background: #58a4ec;
+    font-size: 19px;
+    font-weight: bold;
+    border: 4px solid #58a4ec;
+    box-sizing: border-box;
+    border-radius: 10px;
+    letter-spacing: 0.05em;
+    margin-bottom: 15px;
+    /* margin-right: 10px; */
+}
+
+.btn-reply i {
+    font-size: 20px;
+    margin-right: 10px;
+    color: #ffffff;
+}
+
+.reply-counts i {
+    font-size: 18px;
+    color: #676767;
+    /* margin-left: 630px; */
+    margin-bottom: 14px;
+}
+/* Detailコンポーネント */
+.content_detail {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    width: 50%;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content_detail .header {
+    width: 100%;
+    font-size: 1.2em;
+    background: #58a4ec;
+    padding: 4px;
+    box-sizing: border-box;
+    text-align: center;
+    color: #FFF;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    border-radius: 10px 10px 0px 0px;
+    /* 上だけ角丸 */
+}
+
+.content_reply {
+    /* text-align: center; */
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    width: 50%;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content_reply .header {
+    width: 100%;
+    font-size: 1.2em;
+    background: #58a4ec;
+    padding: 4px;
+    box-sizing: border-box;
+    text-align: center;
+    color: #FFF;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    border-radius: 10px 10px 0px 0px;
+    /* 上だけ角丸 */
+}
+
+.btn-back {
+    background: #58a4ec;
+    border: 4px solid #58a4ec;
+    color: white;
+    font-size: 21px;
+    width: 9%;
+    height: 60px;
+    border-radius: 10px;
+    letter-spacing: 0.05em;
+    margin-right: 20px;
+}
+
+
+#swal2-title {
+    background: #58a4ec;
+    /* padding: 4px; */
+    text-align: center;
+    color: #FFF;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    border-radius: 4px 4px 0px 0px;
+    /* 上だけ角丸 */
+    padding: 22px 20px;
+    /* margin: 0; */
+}
+
+h3 {
+    margin-bottom: 5px;
+    font-size: 18px;
+    letter-spacing: 0.05em;
+}
+
+#event {
+    width: 80%;
+    height: 70px;
+    margin-top: 0px;
+    resize: none;
+    font-size: 20px;
+    background: rgb(239, 246, 254);
+    border-radius: 8px;
+}
+
+#thoughts {
+    width: 80%;
+    height: 70px;
+    margin-top: 0px;
+    resize: none;
+    font-size: 20px;
+    background: rgb(239, 246, 254);
+    border-radius: 8px;
+}
+
+#personality {
+    width: 80%;
+    height: 70px;
+    margin-top: 0px;
+    resize: none;
+    font-size: 20px;
+    background: rgb(239, 246, 254);
+    border-radius: 8px;
+}
+
+#reply {
+    width: 80%;
+    height: 70px;
+    margin-top: 10px;
+    resize: none;
+    font-size: 20px;
+    background: rgb(239, 246, 254);
+    border-radius: 8px;
+}
+
+#swal2-validation-message {
+    font-weight: bold;
+}
