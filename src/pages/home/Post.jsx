@@ -12,7 +12,6 @@ const Post = (props) => {
   const [list, setList] = useState('');
   const [jump, setJump] = useState(false);
 
-  // console.log(props.page)
   // console.log(props.counts)
   // console.log(props.key)
 
@@ -50,6 +49,10 @@ const Post = (props) => {
     props.setPost(post)
     props.setKey(key)
     props.setPage('reply')
+  }
+
+  const mypage = () => {
+    props.setPage('mypage')
   }
 
   const post = () => { // 投稿内容をDBに書き込み
@@ -189,8 +192,8 @@ const Post = (props) => {
       </div>
       <div className='button'>
       <button className={"btn-post"} onClick={() => post()}>投稿</button>
+      <button className={"btn-mypage"} onClick={() => mypage()}>マイページ</button>
       <button className={"btn-logout"} onClick={() => logout()}>ログアウト</button>
-      {/* <button  onClick="location.href='/dist/manual.pdf'">使い方</button> */}
       </div>
       {list}
     </div>

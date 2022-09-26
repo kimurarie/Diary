@@ -8,6 +8,7 @@ const Detail = (props) => {
   const [postlist, setList] = useState('');
 
   // console.log(props.pkey)
+  // console.log(page)
 
   // ブラウザバック防止
   history.pushState(null, null, location.href);
