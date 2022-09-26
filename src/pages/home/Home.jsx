@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 
 // コンポーネント(各画面)のインポート
 import Post from './Post.jsx';
-import Detail from './Detail';
+import Detail from './Detail.jsx';
+import Mypage from './Mypage.jsx';
+
 
 const Home = (props) => {
 
@@ -11,9 +13,9 @@ const Home = (props) => {
   const [post, setPost] = useState('');       // クリックされた投稿内容を取得する用のstate
   // const [counts, setCounts] = useState(0);    // 返信数を取得する用のstate
 
-  // console.log(page)
+  console.log(page)
   // console.log(key)
-  // console.log(post)
+  console.log(props.uid)
   // console.log(counts)
 
   // ブラウザバック防止
@@ -27,6 +29,10 @@ const Home = (props) => {
     case 'reply':
       return (
         <Detail uid={props.uid} name={props.name} setPage={setPage} pkey={key} post={post} />
+      );
+    case 'mypage':
+      return (
+        <Mypage uid={props.uid} name={props.name} setPage={setPage} pkey={key} post={post} />
       );
     default:
       return (

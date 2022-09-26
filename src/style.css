@@ -151,6 +151,19 @@ body {
     margin-right: 20px;
 }
 
+.btn-mypage {
+    background: #f387df;
+    border: 4px solid #f387df;
+    color: white;
+    font-size: 21px;
+    width: 9%;
+    height: 60px;
+    border-radius: 10px;
+    letter-spacing: 0.05em;
+    margin-right: 20px;
+}
+
+
 .btn-logout {
     background: rgb(240, 103, 103);
     border: 4px solid rgb(240, 103, 103);
