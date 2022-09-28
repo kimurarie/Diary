@@ -17,6 +17,7 @@ body {
 .button {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .btn {
@@ -43,6 +44,46 @@ body {
 }
 
 /* Loginコンポーネント */
+.form{
+    text-align: center;
+}
+
+.form_title{
+    display: block;
+    padding-right: 20px;
+}
+
+.textbox {
+    height: 30px;
+    width: 15%;
+    font-size: 16px;
+    margin-right: 15px;
+}
+
+.area_nickname{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.area_experiment{
+    display: flex;
+    justify-content: center
+}
+
+.area_radio{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.area_radio label{
+    display: block;
+    margin-bottom: 8px;
+}
+
 .signup {
     background: rgb(240, 103, 103);
     border: 4px solid rgb(240, 103, 103);
@@ -52,13 +93,7 @@ body {
     height: 60px;
     border-radius: 10px;
     letter-spacing: 0.05em;
-}
-
-.textbox {
-    height: 50px;
-    width: 15%;
-    font-size: 21px;
-    margin-right: 15px;
+    margin-top: 20px;
 }
 
 /* Postコンポーネント */
@@ -96,37 +131,54 @@ body {
 
 .header p {
     padding: 12px 20px;
-    margin: 0;
 }
 
 .header {
     display: flex;
     align-items: center;
+    /* padding: 10px; */
+}
+
+.replies{
+    display: flex;
+    flex: auto;
 }
 
 .name {
     font-size: 20px;
+    margin: 0;
+    margin-left: 5px
 }
 
 .created {
-    margin-left: 28px;
+    margin: 0 0 0 28px;
+    /* margin-left: 28px; */
     font-size: 18px;
+}
+
+.reply_counts{
+    margin: 0;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.fas{
+    margin-right: 5px;
 }
 
 .posts {
     text-align: left;
-    margin-left: 50px;
+    margin: 0 50px 0 50px;
 }
 
 .post {
-    font-size: 19px;
+    font-size: 18px;
 }
 
 .post-personality {
     color: rgb(251, 46, 100);
     font-weight: bold;
 }
-
 
 .login-user {
     margin-bottom: 15px;
@@ -240,10 +292,8 @@ body {
 }
 
 .content_reply {
-    /* text-align: center; */
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
     width: 50%;
