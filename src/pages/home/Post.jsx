@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { database } from '../FirebaseConfig.js';
-import { ref, onValue, push } from 'firebase/database';
+import { ref, onValue, push, update, getDatabase, set, query, orderByChild, get} from 'firebase/database';
 import { getAuth, signOut } from 'firebase/auth';
 import { Redirect } from 'react-router';
 import Swal from 'sweetalert2';
@@ -14,6 +14,8 @@ const Post = (props) => {
 
   // console.log(props.counts)
   // console.log(props.key)
+  // console.log(comments)
+  console.log(props.uid)
 
   // ブラウザバック防止
   history.pushState(null, null, location.href);
@@ -35,9 +37,24 @@ const Post = (props) => {
         // console.log(result[sortedKeys[i]])
 
         // 投稿内容をリストにpush
-        tmpList.push(<div className='content' key={sortedKeys[i]}><div className='header' onClick={() => transition(result[sortedKeys[i]], sortedKeys[i])}><p className='name'>{result[sortedKeys[i]].name}</p><p className='created'>{result[sortedKeys[i]].created}</p></div>
-          <div className='posts'><p className='post'>今日の出来事：{result[sortedKeys[i]].event}</p><p className='post'>感じたこと：{result[sortedKeys[i]].thoughts}</p><p className='post post-personality'>自分の性格：{result[sortedKeys[i]].personality}</p></div>
-          <div className='reply'><button type="submit" className="btn-reply" onClick={() => reply(sortedKeys[i])}><i className="fas fa-comment-alt"></i>返信</button></div></div>
+        tmpList.push(
+          <div className='content' key={sortedKeys[i]}>
+            <div className='header' onClick={() => transition(result[sortedKeys[i]], sortedKeys[i])}>
+              <p className='name'>{result[sortedKeys[i]].name}</p>
+              <p className='created'>{result[sortedKeys[i]].created}</p>
+              <div className='replies'>
+                <p className='reply_counts'><i className="fas fa-comment-dots"></i>{result[sortedKeys[i]].comments}</p>
+              </div>
+            </div>
+            <div className='posts'>
+              <p className='post'>今日の出来事：{result[sortedKeys[i]].event}</p>
+              <p className='post'>感じたこと：{result[sortedKeys[i]].thoughts}</p>
+              <p className='post post-personality'>自分の性格：{result[sortedKeys[i]].personality}</p>
+            </div>
+            <div className='reply'>
+              <button type="submit" className="btn-reply" onClick={() => reply(sortedKeys[i])}><i className="fas fa-comment-alt"></i>返信</button>
+            </div>
+          </div>
         )
       }
       setList([...tmpList])
@@ -92,7 +109,7 @@ const Post = (props) => {
         event: result.value.event,
         thoughts: result.value.thoughts,
         personality: result.value.personality,
-        // comments: props.setCounts
+        comments: 0
       })
       Swal.fire({
         text: "投稿しました！",
@@ -128,7 +145,7 @@ const Post = (props) => {
       const timestamp = created.getFullYear() + "/" + (created.getMonth() + 1).toString().padStart(2, "0") + "/" + created.getDate().toString().padStart(2, "0")
         + " " + created.getHours().toString().padStart(2, "0") + ":" + created.getMinutes().toString().padStart(2, "0") + ":" + created.getSeconds().toString().padStart(2, "0");
 
-      // DBに登録
+      // DBに登録(replies)
       push(ref(database, 'replies'), {
         created: timestamp,
         id: props.uid,
@@ -137,12 +154,23 @@ const Post = (props) => {
         pkey: key
       })
 
-      // 返信があったらその投稿に返信keyを追加する
-      // const usersRef = ref.child('posts/key');
-      // usersRef.update({
-      //   'props.key': '',
-      //   'gracehop/nickname': 'Amazing Grace'
-      // });
+      // 該当する投稿のコメント数を取得
+      const db = getDatabase();
+      const recentPostsRef = query(ref(db, 'posts/' + key));
+      get(recentPostsRef).then((snapshot) => {
+        var result = snapshot.val();
+        console.log(result.comments)
+        
+        //コメント数を+1
+        const comments = result.comments +1;
+        console.log(comments)
+
+        // DB更新(posts)
+        const dbRef = ref(getDatabase(), '/posts/' + key);
+        update(dbRef, {
+        comments: comments
+        })
+      })
 
       Swal.fire({
         text: "返信しました！",
@@ -191,9 +219,9 @@ const Post = (props) => {
         <a href={`${window.location.origin}/manual.pdf#zoom=50`} target="_blank">使い方</a>
       </div>
       <div className='button'>
-      <button className={"btn-post"} onClick={() => post()}>投稿</button>
-      <button className={"btn-mypage"} onClick={() => mypage()}>マイページ</button>
-      <button className={"btn-logout"} onClick={() => logout()}>ログアウト</button>
+        <button className={"btn-post"} onClick={() => post()}>投稿</button>
+        <button className={"btn-mypage"} onClick={() => mypage()}>マイページ</button>
+        <button className={"btn-logout"} onClick={() => logout()}>ログアウト</button>
       </div>
       {list}
     </div>

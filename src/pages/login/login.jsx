@@ -11,9 +11,14 @@ const Login = (props) => {
   // propsで渡された値をprops名で使えるようにする
   // const {name,uid} = props;
 
+  // console.log(e.target.value)
+  // console.log(nickname)
+  // console(experiment)
+
   const [page, setPage] = useState('login');
   const [jump, setJump] = useState(false);
   const [nickname, setName] = useState('');
+  const [experiment, setExperiment] = useState('');
 
   // ブラウザバック防止
   history.pushState(null, null, location.href);
@@ -30,12 +35,35 @@ const Login = (props) => {
     }
   }, [])
 
+  // 選択されたラジオボタンのvalueをセット
+  const handleChange = e => setExperiment(e.target.value);
+
   // 新規登録でニックネームを登録
   const signUp = () => {
-    if (nickname.length != 0) {
+    if (experiment == '') {
+      if(nickname.length == 0) {
       Swal.fire({
-        title: 'この名前で新規登録しますか？',
-        text: 'ニックネーム：' + nickname,
+        icon: "warning",
+        confirmButtonColor: "#58a4ec",
+        text: "全ての項目を入力してください",
+      })
+      }else{
+        Swal.fire({
+          icon: "warning",
+          confirmButtonColor: "#58a4ec",
+          text: "参加する実験を選択してください",
+        })
+      }
+    }else if(experiment != '' && nickname.length == 0){
+      Swal.fire({
+        icon: "warning",
+        confirmButtonColor: "#58a4ec",
+        text: "ニックネームを入力してください",
+      })
+    }else {
+      Swal.fire({
+        title: '以下の内容で新規登録しますか？',
+        html: 'ニックネーム：' + nickname + '<br>参加する実験：' + experiment,
         confirmButtonText: '新規登録',
         confirmButtonColor: "#58a4ec",
         showCancelButton: true,
@@ -46,7 +74,8 @@ const Login = (props) => {
           // ニックネームをDBに登録
           const dbRef = ref(getDatabase(), '/user/' + props.uid);
           set(dbRef, {
-            name: nickname
+            name: nickname,
+            experiment: experiment
           })
           setJump(true);
           Swal.fire({
@@ -56,12 +85,6 @@ const Login = (props) => {
           });
         }
       })
-    } else {
-      Swal.fire({
-        icon: "warning",
-        confirmButtonColor: "#58a4ec",
-        text: "ニックネームを入力してください",
-      });
     }
   }
 
@@ -80,9 +103,24 @@ const Login = (props) => {
     return (
       <div className="main">
         <h1 className="title">新規登録画面</h1>
-        <div className='button'>
-        <input type="text" value={nickname} id="nickname" className="textbox" placeholder="ニックネームを入力" onChange={(e) => setName(e.target.value)}></input>
-        <button className="signup" onClick={() => signUp()}>新規登録</button>
+        <div className='form'>
+          <div className='area_nickname'>
+            <p className='form_title'><label htmlFor="nickname">ニックネーム</label></p>
+            <input type="text" value={nickname} id="nickname" className="textbox" placeholder="" onChange={(e) => setName(e.target.value)}></input>
+          </div>
+          <div className='area_experiment'>
+            <p className='form_title'>参加する実験</p>
+            <div className='area_radio'>
+              <div>
+                <label><input type="radio" name="experiment" value="実験1" id="experiment" onChange={handleChange} checked={experiment === '実験1'}/>実験1：自分自身にリフレーミングをする</label>
+              </div>
+              <div>
+                <label><input type="radio" name="experiment" value="実験2" id="experiment" onChange={handleChange} checked={experiment === '実験2'}/>実験2：第三者にリフレーミングをする</label>
+              </div>
+              {/* <p>選択値：{experiment}</p> */}
+            </div>
+          </div>
+          <button className="signup" onClick={() => signUp()}>新規登録</button>
         </div>
       </div>
     );
