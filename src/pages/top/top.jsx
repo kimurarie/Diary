@@ -20,7 +20,7 @@ const Top = () => {
   return (
     <div className="main">
       <h1 className="title">自己肯定感を高める日記帳システム</h1>
-      <div className='button'>
+      <div className='button_top'>
       <button className="btn btn-signup" onClick={() => login()}>新しいアカウントを作成</button>
       <button className="btn btn-login" onClick={() => login()}>Googleでログイン</button>
       </div>

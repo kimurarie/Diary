@@ -36,9 +36,23 @@ const Mypage = (props) => {
         // console.log(result[sortedKeys[i]])
 
         // 投稿内容をリストにpush
-        tmpList.push(<div className='content' key={sortedKeys[i]}><div className='header' onClick={() => transition(result[sortedKeys[i]], sortedKeys[i])}><p className='name'>{result[sortedKeys[i]].name}</p><p className='created'>{result[sortedKeys[i]].created}</p></div>
-          <div className='posts'><p className='post'>今日の出来事：{result[sortedKeys[i]].event}</p><p className='post'>感じたこと：{result[sortedKeys[i]].thoughts}</p><p className='post post-personality'>自分の性格：{result[sortedKeys[i]].personality}</p></div>
-          <div className='reply'><button type="submit" className="btn-reply" onClick={() => reply(sortedKeys[i])}><i className="fas fa-comment-alt"></i>返信</button></div></div>
+        tmpList.push(
+        <div className='content_mypage' key={sortedKeys[i]}>
+          <div className='header' onClick={() => transition(result[sortedKeys[i]], sortedKeys[i])}>
+            <p className='name'>{result[sortedKeys[i]].name}</p>
+            <p className='created'>{result[sortedKeys[i]].created}</p>
+          </div>
+          <div className='posts'>
+            <p className='post'>今日の出来事：{result[sortedKeys[i]].event}</p>
+            <p className='post'>感じたこと：{result[sortedKeys[i]].thoughts}</p>
+            <p className='post post-personality'>自分の性格：{result[sortedKeys[i]].personality}</p>
+          </div>
+          <div className='reply'>
+            <button type="submit" className="btn-reply" onClick={() => reply(sortedKeys[i])}>
+              <i className="fas fa-comment-alt"></i>返信
+            </button>
+          </div>
+        </div>
         )
       }
       setList([...tmpList])
@@ -49,7 +63,7 @@ const Mypage = (props) => {
     <div className="main">
       <h1 className="title">自己肯定感を高める日記帳システム</h1>
       <h3 className="login-user">ログインユーザ：{props.name}さん</h3>
-      <div className='button'>
+      <div className='button_home'>
       <button className={"btn-back"} onClick={() => props.setPage('home')}>ホームへ</button>
       </div>
       {mypostlist}

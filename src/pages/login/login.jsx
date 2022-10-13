@@ -104,20 +104,21 @@ const Login = (props) => {
       <div className="main">
         <h1 className="title">新規登録画面</h1>
         <div className='form'>
-          <div className='area_nickname'>
-            <p className='form_title'><label htmlFor="nickname">ニックネーム</label></p>
-            <input type="text" value={nickname} id="nickname" className="textbox" placeholder="" onChange={(e) => setName(e.target.value)}></input>
-          </div>
-          <div className='area_experiment'>
-            <p className='form_title'>参加する実験</p>
-            <div className='area_radio'>
-              <div>
-                <label><input type="radio" name="experiment" value="実験1" id="experiment" onChange={handleChange} checked={experiment === '実験1'}/>実験1：自分自身にリフレーミングをする</label>
+          <div class="area_form">
+            <div className='area_nickname'>
+              <p className='form_title'><label htmlFor="nickname">ニックネーム</label></p>
+              <input type="text" value={nickname} id="nickname" className="textbox" placeholder="" onChange={(e) => setName(e.target.value)}></input>
+            </div>
+            <div className='area_experiment'>
+              <p className='form_title'>参加する実験</p>
+              <div className='area_radio'>
+                <div>
+                  <label><input type="radio" name="experiment" value="実験1" id="experiment" onChange={handleChange} checked={experiment === '実験1'}/>実験1：自分自身にリフレーミングをする</label>
+                </div>
+                <div>
+                  <label><input type="radio" name="experiment" value="実験2" id="experiment" onChange={handleChange} checked={experiment === '実験2'}/>実験2：第三者にリフレーミングをする</label>
+                </div>
               </div>
-              <div>
-                <label><input type="radio" name="experiment" value="実験2" id="experiment" onChange={handleChange} checked={experiment === '実験2'}/>実験2：第三者にリフレーミングをする</label>
-              </div>
-              {/* <p>選択値：{experiment}</p> */}
             </div>
           </div>
           <button className="signup" onClick={() => signUp()}>新規登録</button>
