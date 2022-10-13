@@ -158,12 +158,9 @@ const Post = (props) => {
       const db = getDatabase();
       const recentPostsRef = query(ref(db, 'posts/' + key));
       get(recentPostsRef).then((snapshot) => {
-        var result = snapshot.val();
-        console.log(result.comments)
-        
+        var result = snapshot.val();        
         //コメント数を+1
         const comments = result.comments +1;
-        console.log(comments)
 
         // DB更新(posts)
         const dbRef = ref(getDatabase(), '/posts/' + key);
@@ -218,7 +215,7 @@ const Post = (props) => {
       <div className="manual">
         <a href={`${window.location.origin}/manual.pdf#zoom=50`} target="_blank">使い方</a>
       </div>
-      <div className='button'>
+      <div className='button_home'>
         <button className={"btn-post"} onClick={() => post()}>投稿</button>
         <button className={"btn-mypage"} onClick={() => mypage()}>マイページ</button>
         <button className={"btn-logout"} onClick={() => logout()}>ログアウト</button>
