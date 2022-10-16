@@ -17,15 +17,19 @@ import './style.css';
 const App = () => {
 
     const [uid, setId] = useState('');
-    const [nickname, setName] = useState('ニックネームの初期値');
-
+    const [loginUser, setloginUser] = useState(null);
+    console.log(loginUser);
     // ブラウザバック防止
     history.pushState(null, null, location.href);
     window.addEventListener('popstate', (e) => {
         history.go(1);
     });
 
-    useEffect(async () => {
+    useEffect(() => {
+        load();
+    }, [])
+
+    const load = async () => {
         const data = await getInfo();
 
         // ログイン時(dataが存在した時)
@@ -33,10 +37,9 @@ const App = () => {
             const id = data.uid;
             setId(id);
             const name = await getDb(id);
-            setName(name);
+            setloginUser(name);
         }
-
-    }, [])
+    }
 
     // ログインユーザの情報を取得，未ログイン時はnullを返す
     const getInfo = () => {
@@ -59,7 +62,7 @@ const App = () => {
                     resolve('');
                 else
                     // console.log(result)
-                    resolve(result.name);
+                    resolve(result);
             })
         })
     }
@@ -69,8 +72,8 @@ const App = () => {
         <BrowserRouter>
             <Switch>
                 <Route exact path='/'><Top /></Route>
-                <Route path='/login'>{nickname === 'ニックネームの初期値' ? null : <Login uid={uid} name={nickname} />}</Route>
-                <Route path='/home'><Home uid={uid} name={nickname} /></Route>
+                <Route path='/login'>{loginUser === null ? null : <Login uid={uid} name={loginUser.name} load={load} />}</Route>
+                <Route path='/home'>{loginUser === null ? null : <Home uid={uid} name={loginUser.name} experiment={loginUser.experiment} />}</Route>
             </Switch>
         </BrowserRouter>
     )

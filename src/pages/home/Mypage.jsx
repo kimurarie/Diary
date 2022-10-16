@@ -8,10 +8,10 @@ const Mypage = (props) => {
 
   const [mypostlist, setList] = useState('');
 
-  console.log(props.uid)
+  // console.log(props.uid)
   // console.log(page)
   var id = props.uid;
-  console.log(id)
+  // console.log(id)
 
   // ブラウザバック防止
   history.pushState(null, null, location.href);
@@ -22,11 +22,11 @@ const Mypage = (props) => {
   useEffect(() => { // 無限ループ対策
 
     const db = getDatabase();
-    const recentPostsRef = query(ref(db, 'posts'), orderByChild('id'), equalTo(props.uid));
+    const recentPostsRef = query(ref(db, `posts/${props.experiment}`), orderByChild('id'), equalTo(props.uid));
     get(recentPostsRef).then((snapshot) => {
       let tmpList = [];
       var result = snapshot.val();
-      console.log(result);
+      // console.log(result);
 
       // resultのObjectのKeyをとり，その順番を裏返す
       const sortedKeys = Object.keys(result).reverse();

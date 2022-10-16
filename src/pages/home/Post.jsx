@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { database } from '../FirebaseConfig.js';
-import { ref, onValue, push, update, getDatabase, set, query, orderByChild, get} from 'firebase/database';
+import { ref, onValue, push, update, getDatabase, set, query, orderByChild, get, equalTo} from 'firebase/database';
 import { getAuth, signOut } from 'firebase/auth';
 import { Redirect } from 'react-router';
 import Swal from 'sweetalert2';
@@ -15,7 +15,7 @@ const Post = (props) => {
   // console.log(props.counts)
   // console.log(props.key)
   // console.log(comments)
-  console.log(props.uid)
+  // console.log(props.uid)
 
   // ブラウザバック防止
   history.pushState(null, null, location.href);
@@ -25,7 +25,8 @@ const Post = (props) => {
 
 
   useEffect(() => { // 無限ループ対策
-    onValue(ref(database, 'posts'), (snapshop) => {
+    if(props.experiment=="experiment2"){
+    onValue(ref(database, `posts/${props.experiment}`), (snapshop) => {
       let tmpList = [];
       const result = snapshop.val()
 
@@ -59,6 +60,46 @@ const Post = (props) => {
       }
       setList([...tmpList])
     })
+  }else{
+    const db = getDatabase();
+    const recentPostsRef = query(ref(db, `posts/${props.experiment}`), orderByChild('id'), equalTo(props.uid));
+    get(recentPostsRef).then((snapshot) => {
+      let tmpList = [];
+      var result = snapshot.val();
+      // console.log(`posts/${props.experiment}`);
+      console.log(result);
+
+      // resultのObjectのKeyをとり，その順番を裏返す
+      const sortedKeys = Object.keys(result).reverse();
+
+      for (let i = 0; sortedKeys[i]; i++) {
+        // console.log(sortedKeys[i])
+        // console.log(result[sortedKeys[i]])
+
+        // 投稿内容をリストにpush
+        tmpList.push(
+        <div className='content_mypage' key={sortedKeys[i]}>
+          <div className='header' onClick={() => transition(result[sortedKeys[i]], sortedKeys[i])}>
+            <p className='name'>{result[sortedKeys[i]].name}</p>
+            <p className='created'>{result[sortedKeys[i]].created}</p>
+          </div>
+          <div className='posts'>
+            <p className='post'>今日の出来事：{result[sortedKeys[i]].event}</p>
+            <p className='post'>感じたこと：{result[sortedKeys[i]].thoughts}</p>
+            <p className='post post-personality'>自分の性格：{result[sortedKeys[i]].personality}</p>
+          </div>
+          <div className='reply'>
+            <button type="submit" className="btn-reply" onClick={() => reply(sortedKeys[i])}>
+              <i className="fas fa-comment-alt"></i>返信
+            </button>
+          </div>
+        </div>
+        )
+      }
+      setList([...tmpList])
+    })  
+
+  }
   }, [])
 
   // コンポーネントの切り替えの際に必要なstateを更新
@@ -102,7 +143,7 @@ const Post = (props) => {
         + " " + created.getHours().toString().padStart(2, "0") + ":" + created.getMinutes().toString().padStart(2, "0") + ":" + created.getSeconds().toString().padStart(2, "0");
 
       // DBに登録
-      push(ref(database, 'posts'), {
+      push(ref(database, `posts/${props.experiment}`), {
         created: timestamp,
         id: props.uid,
         name: props.name,
@@ -156,14 +197,14 @@ const Post = (props) => {
 
       // 該当する投稿のコメント数を取得
       const db = getDatabase();
-      const recentPostsRef = query(ref(db, 'posts/' + key));
+      const recentPostsRef = query(ref(db, `posts/${props.experiment}/` + key));
       get(recentPostsRef).then((snapshot) => {
         var result = snapshot.val();        
         //コメント数を+1
         const comments = result.comments +1;
 
         // DB更新(posts)
-        const dbRef = ref(getDatabase(), '/posts/' + key);
+        const dbRef = ref(getDatabase(), `posts/${props.experiment}/` + key);
         update(dbRef, {
         comments: comments
         })

@@ -13,9 +13,9 @@ const Home = (props) => {
   const [post, setPost] = useState('');       // クリックされた投稿内容を取得する用のstate
   // const [counts, setCounts] = useState(0);    // 返信数を取得する用のstate
 
-  console.log(page)
+  // console.log(page)
   // console.log(key)
-  console.log(props.uid)
+  // console.log(propss.uid)
   // console.log(counts)
 
   // ブラウザバック防止
@@ -32,11 +32,11 @@ const Home = (props) => {
       );
     case 'mypage':
       return (
-        <Mypage uid={props.uid} name={props.name} setPage={setPage} pkey={key} post={post} />
+        <Mypage uid={props.uid} name={props.name} setPage={setPage} pkey={key} post={post} experiment={props.experiment}/>
       );
     default:
       return (
-        <Post uid={props.uid} name={props.name} setPage={setPage} setKey={setKey} setPost={setPost}/>
+        <Post uid={props.uid} name={props.name} setPage={setPage} setKey={setKey} setPost={setPost} experiment={props.experiment}/>
       );
   }
 }
