@@ -8,12 +8,13 @@ import Swal from 'sweetalert2';
 
 const Login = (props) => {
 
+  const experimentType = {
+    experiment1: '実験1',
+    experiment2: '実験2'
+  }
+
   // propsで渡された値をprops名で使えるようにする
   // const {name,uid} = props;
-
-  // console.log(e.target.value)
-  // console.log(nickname)
-  // console(experiment)
 
   const [page, setPage] = useState('login');
   const [jump, setJump] = useState(false);
@@ -63,7 +64,7 @@ const Login = (props) => {
     }else {
       Swal.fire({
         title: '以下の内容で新規登録しますか？',
-        html: 'ニックネーム：' + nickname + '<br>参加する実験：' + experiment,
+        html: 'ニックネーム：' + nickname + '<br>参加する実験：' + experimentType[experiment],
         confirmButtonText: '新規登録',
         confirmButtonColor: "#58a4ec",
         showCancelButton: true,
@@ -78,6 +79,7 @@ const Login = (props) => {
             experiment: experiment
           })
           setJump(true);
+          props.load();
           Swal.fire({
             icon: "success",
             confirmButtonColor: "#58a4ec",
@@ -113,10 +115,10 @@ const Login = (props) => {
               <p className='form_title'>参加する実験</p>
               <div className='area_radio'>
                 <div>
-                  <label><input type="radio" name="experiment" value="実験1" id="experiment" onChange={handleChange} checked={experiment === '実験1'}/>実験1：自分自身にリフレーミングをする</label>
+                  <label><input type="radio" name="experiment" value="experiment1" id="experiment" onChange={handleChange} checked={experiment === 'experiment1'}/>実験1：自分自身にリフレーミングをする</label>
                 </div>
                 <div>
-                  <label><input type="radio" name="experiment" value="実験2" id="experiment" onChange={handleChange} checked={experiment === '実験2'}/>実験2：第三者にリフレーミングをする</label>
+                  <label><input type="radio" name="experiment" value="experiment2" id="experiment" onChange={handleChange} checked={experiment === 'experiment2'}/>実験2：第三者にリフレーミングをする</label>
                 </div>
               </div>
             </div>
