@@ -18,7 +18,7 @@ const App = () => {
 
     const [uid, setId] = useState('');
     const [loginUser, setloginUser] = useState(null);
-    console.log(loginUser);
+    // console.log(loginUser);
     // ブラウザバック防止
     history.pushState(null, null, location.href);
     window.addEventListener('popstate', (e) => {

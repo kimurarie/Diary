@@ -25,26 +25,73 @@ const Post = (props) => {
 
 
   useEffect(() => { // 無限ループ対策
+    // 実験2の場合は，実験2の参加者の投稿を取得表示
     if(props.experiment=="experiment2"){
-    onValue(ref(database, `posts/${props.experiment}`), (snapshop) => {
-      let tmpList = [];
-      const result = snapshop.val()
+      onValue(ref(database, `posts/${props.experiment}`), (snapshop) => {
+        let tmpList = [];
+        const result = snapshop.val()
 
-      // resultのObjectのKeyをとり，その順番を裏返す
-      const sortedKeys = Object.keys(result).reverse();
+        // resultのObjectのKeyをとり，その順番を裏返す
+        const sortedKeys = Object.keys(result).reverse();
 
-      for (let i = 0; sortedKeys[i]; i++) {
-        // console.log(sortedKeys[i])
-        // console.log(result[sortedKeys[i]])
+        for (let i = 0; sortedKeys[i]; i++) {
+          // console.log(sortedKeys[i])
+          // console.log(result[sortedKeys[i]])
+          console.log(result[sortedKeys[i]].comments)
+          // props.setComments(result[sortedKeys[i]].comments)
+          // console.log(props.comments)
 
-        // 投稿内容をリストにpush
-        tmpList.push(
-          <div className='content' key={sortedKeys[i]}>
-            <div className='header' onClick={() => transition(result[sortedKeys[i]], sortedKeys[i])}>
+
+          // 投稿内容をリストにpush
+          tmpList.push(
+            <div className='content' key={sortedKeys[i]}>
+              <div className='header' onClick={() => transition(result[sortedKeys[i]], sortedKeys[i],result[sortedKeys[i]].comments)}>
+                <p className='name'>{result[sortedKeys[i]].name}</p>
+                <p className='created'>{result[sortedKeys[i]].created}</p>
+                <div className='replies'>
+                  <p className='reply_counts'><i className="fas fa-comment-dots"></i>{result[sortedKeys[i]].comments}</p>
+                </div>
+              </div>
+              <div className='posts'>
+                <p className='post'>今日の出来事：{result[sortedKeys[i]].event}</p>
+                <p className='post'>感じたこと：{result[sortedKeys[i]].thoughts}</p>
+                <p className='post post-personality'>自分の性格：{result[sortedKeys[i]].personality}</p>
+              </div>
+              <div className='reply'>
+                <button type="submit" className="btn-reply" onClick={() => reply(sortedKeys[i])}><i className="fas fa-comment-alt"></i>返信</button>
+              </div>
+            </div>
+          )
+        }setList([...tmpList])
+      })
+    }else{
+      // 実験1の場合は，自分の投稿のみを取得表示
+      const db = getDatabase();
+      const starCountRef = query(ref(db, `posts/${props.experiment}`), orderByChild('id'), equalTo(props.uid));
+      onValue(starCountRef, (snapshot) => {
+        let tmpList = [];
+        var result = snapshot.val();
+
+        // console.log(`posts/${props.experiment}`);
+        // console.log(result);
+
+        // resultのObjectのKeyをとり，その順番を裏返す
+        const sortedKeys = Object.keys(result).reverse();
+
+        for (let i = 0; sortedKeys[i]; i++) {
+          // console.log(sortedKeys[i])
+          // console.log(result[sortedKeys[i]])
+
+          props.setComments(result[sortedKeys[i]].comments)
+
+          // 投稿内容をリストにpush
+          tmpList.push(
+          <div className='content_mypage' key={sortedKeys[i]}>
+            <div className='header' onClick={() => transition(result[sortedKeys[i]], sortedKeys[i],result[sortedKeys[i]].comments)}>
               <p className='name'>{result[sortedKeys[i]].name}</p>
               <p className='created'>{result[sortedKeys[i]].created}</p>
               <div className='replies'>
-                <p className='reply_counts'><i className="fas fa-comment-dots"></i>{result[sortedKeys[i]].comments}</p>
+                  <p className='reply_counts'><i className="fas fa-comment-dots"></i>{result[sortedKeys[i]].comments}</p>
               </div>
             </div>
             <div className='posts'>
@@ -53,59 +100,22 @@ const Post = (props) => {
               <p className='post post-personality'>自分の性格：{result[sortedKeys[i]].personality}</p>
             </div>
             <div className='reply'>
-              <button type="submit" className="btn-reply" onClick={() => reply(sortedKeys[i])}><i className="fas fa-comment-alt"></i>返信</button>
+              <button type="submit" className="btn-reply" onClick={() => reply(sortedKeys[i])}>
+                <i className="fas fa-comment-alt"></i>返信
+              </button>
             </div>
           </div>
-        )
-      }
-      setList([...tmpList])
-    })
-  }else{
-    const db = getDatabase();
-    const recentPostsRef = query(ref(db, `posts/${props.experiment}`), orderByChild('id'), equalTo(props.uid));
-    get(recentPostsRef).then((snapshot) => {
-      let tmpList = [];
-      var result = snapshot.val();
-      // console.log(`posts/${props.experiment}`);
-      console.log(result);
-
-      // resultのObjectのKeyをとり，その順番を裏返す
-      const sortedKeys = Object.keys(result).reverse();
-
-      for (let i = 0; sortedKeys[i]; i++) {
-        // console.log(sortedKeys[i])
-        // console.log(result[sortedKeys[i]])
-
-        // 投稿内容をリストにpush
-        tmpList.push(
-        <div className='content_mypage' key={sortedKeys[i]}>
-          <div className='header' onClick={() => transition(result[sortedKeys[i]], sortedKeys[i])}>
-            <p className='name'>{result[sortedKeys[i]].name}</p>
-            <p className='created'>{result[sortedKeys[i]].created}</p>
-          </div>
-          <div className='posts'>
-            <p className='post'>今日の出来事：{result[sortedKeys[i]].event}</p>
-            <p className='post'>感じたこと：{result[sortedKeys[i]].thoughts}</p>
-            <p className='post post-personality'>自分の性格：{result[sortedKeys[i]].personality}</p>
-          </div>
-          <div className='reply'>
-            <button type="submit" className="btn-reply" onClick={() => reply(sortedKeys[i])}>
-              <i className="fas fa-comment-alt"></i>返信
-            </button>
-          </div>
-        </div>
-        )
-      }
-      setList([...tmpList])
-    })  
-
-  }
+          )
+        }setList([...tmpList])
+      })  
+    }
   }, [])
 
   // コンポーネントの切り替えの際に必要なstateを更新
-  const transition = (post, key) => {
+  const transition = (post, key, comments) => {
     props.setPost(post)
     props.setKey(key)
+    props.setComments(comments)
     props.setPage('reply')
   }
 
