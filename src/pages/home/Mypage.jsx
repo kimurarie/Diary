@@ -38,9 +38,12 @@ const Mypage = (props) => {
         // 投稿内容をリストにpush
         tmpList.push(
         <div className='content_mypage' key={sortedKeys[i]}>
-          <div className='header' onClick={() => transition(result[sortedKeys[i]], sortedKeys[i])}>
+          <div className='header'>
             <p className='name'>{result[sortedKeys[i]].name}</p>
             <p className='created'>{result[sortedKeys[i]].created}</p>
+            <div className='replies'>
+              <p className='reply_counts'><i className="fas fa-comment-dots"></i>{props.comments}</p>
+            </div>
           </div>
           <div className='posts'>
             <p className='post'>今日の出来事：{result[sortedKeys[i]].event}</p>

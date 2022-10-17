@@ -9,6 +9,7 @@ const Detail = (props) => {
 
   // console.log(props.pkey)
   // console.log(page)
+  console.log(props.comments)
 
   // ブラウザバック防止
   history.pushState(null, null, location.href);
@@ -24,16 +25,17 @@ const Detail = (props) => {
       <div className='content_detail'>
         <div className='header'>
           <p className='name'>{props.post.name}</p>
-          <p className='created'>{props.post.created}</p>
+          <p className='created'>{props.post.created}</p> 
+          <div className='replies'>
+            <p className='reply_counts'><i className="fas fa-comment-dots"></i>{props.comments}</p>
+          </div>
         </div>
         <div className='posts'>
           <p className='post'>今日の出来事：{props.post.event}</p>
           <p className='post'>感じたこと：{props.post.thoughts}</p>
           <p className='post post-personality'>自分の性格：{props.post.personality}</p>
         </div>
-        {/* <div className='replies'>
-          <p className='reply_counts'><i className="fas fa-comment-dots"></i>{result[sortedKeys[i]].comments}</p>
-        </div> */}
+       
       </div>
     )
     setList([...tmpList])
