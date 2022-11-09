@@ -17,7 +17,8 @@ import './style.css';
 const App = () => {
 
     const [uid, setId] = useState('');
-    const [loginUser, setloginUser] = useState(null);
+    const [fullname, setFullname] = useState('');
+    const [loginUser, setloginUser] = useState({name: '初期値',experiment: ''});
     // console.log(loginUser);
     // ブラウザバック防止
     history.pushState(null, null, location.href);
@@ -31,11 +32,14 @@ const App = () => {
 
     const load = async () => {
         const data = await getInfo();
+        console.log(data)
 
         // ログイン時(dataが存在した時)
         if (data != null) {
             const id = data.uid;
+            const fullname = data.displayName;
             setId(id);
+            setFullname(fullname);
             const name = await getDb(id);
             setloginUser(name);
         }
@@ -59,7 +63,7 @@ const App = () => {
 
                 const result = snapshot.val();
                 if (result === null)
-                    resolve('');
+                    resolve({name: '',experiment: ''});
                 else
                     // console.log(result)
                     resolve(result);
@@ -72,7 +76,7 @@ const App = () => {
         <BrowserRouter>
             <Switch>
                 <Route exact path='/'><Top /></Route>
-                <Route path='/login'>{loginUser === null ? null : <Login uid={uid} name={loginUser.name} load={load} />}</Route>
+                <Route path='/login'>{loginUser === null ? null : <Login uid={uid} fullname={fullname} name={loginUser.name} load={load} />}</Route>
                 <Route path='/home'>{loginUser === null ? null : <Home uid={uid} name={loginUser.name} experiment={loginUser.experiment} />}</Route>
             </Switch>
         </BrowserRouter>

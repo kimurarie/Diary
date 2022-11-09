@@ -215,6 +215,9 @@ body {
     letter-spacing: 0.05em;
     margin-right: 20px;
 }
+.btn-post {
+    font-size: 19px;
+}
 
 .btn-mypage {
     background: #f387df;
