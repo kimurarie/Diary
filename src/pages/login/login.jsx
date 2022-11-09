@@ -28,13 +28,16 @@ const Login = (props) => {
   });
 
   useEffect(() => {
+  //   setTimeout(function(){
+  //     // alert('時間切れです');
+  // }, 2000);
     // nameが存在しなかったら新規登録画面へ
     if (props.name === '') {
       setPage('singup');
-    } else {
+    } else if(props.name != '初期値') {
       setJump(true);
     }
-  }, [])
+  }, [props.name])
 
   // 選択されたラジオボタンのvalueをセット
   const handleChange = e => setExperiment(e.target.value);
@@ -75,6 +78,7 @@ const Login = (props) => {
           // ニックネームをDBに登録
           const dbRef = ref(getDatabase(), '/user/' + props.uid);
           set(dbRef, {
+            fullname:props.fullname,
             name: nickname,
             experiment: experiment
           })

@@ -86,7 +86,7 @@ const Post = (props) => {
 
           // 投稿内容をリストにpush
           tmpList.push(
-          <div className='content_mypage' key={sortedKeys[i]}>
+          <div className='content' key={sortedKeys[i]}>
             <div className='header' onClick={() => transition(result[sortedKeys[i]], sortedKeys[i],result[sortedKeys[i]].comments)}>
               <p className='name'>{result[sortedKeys[i]].name}</p>
               <p className='created'>{result[sortedKeys[i]].created}</p>
@@ -109,7 +109,7 @@ const Post = (props) => {
         }setList([...tmpList])
       })  
     }
-  }, [])
+  }, [props.experiment])
 
   // コンポーネントの切り替えの際に必要なstateを更新
   const transition = (post, key, comments) => {

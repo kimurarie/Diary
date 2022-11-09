@@ -35,7 +35,6 @@ const Detail = (props) => {
           <p className='post'>感じたこと：{props.post.thoughts}</p>
           <p className='post post-personality'>自分の性格：{props.post.personality}</p>
         </div>
-       
       </div>
     )
     setList([...tmpList])
